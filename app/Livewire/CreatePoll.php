@@ -23,23 +23,23 @@ class CreatePoll extends Component
     {
         return view('livewire.create-poll');
     }
-    public function addOption()
+    public function addOption(): void
     {
         $this->options[] = '';
     }
 
-    public function removeOption($index)
+    public function removeOption($index): void
     {
         unset($this->options[$index]);
         $this->options = array_values($this->options);
     }
 
-    public function updated($propertyName)
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
 
-    public function createPoll()
+    public function createPoll(): void
     {
         $this->validate();
 
@@ -52,5 +52,7 @@ class CreatePoll extends Component
         );
 
         $this->reset('title', 'options');
+
+        $this->dispatch('pollCreated');
     }
 }
